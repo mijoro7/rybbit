@@ -4,7 +4,7 @@ services:
     container_name: caddy
     restart: unless-stopped
     ports:
-      - "80:1080"
+      - "1080:1080"
       - "448:448"
       - "448:448/udp" # Needed for HTTP/3
     volumes:

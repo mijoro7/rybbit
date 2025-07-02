@@ -4,16 +4,16 @@ services:
     container_name: caddy
     restart: unless-stopped
     ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp" # Needed for HTTP/3
+      - "80:80"        # HTTP
+      - "443:443"      # HTTPS
+      - "1080:1080"    # (Optional: leave if needed)
+      - "448:448"
+      - "448:448/udp"  # HTTP/3 (Optional)
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile # Mount Caddy config file
-      - caddy_data:/data # Mount persistent data volume for certs etc.
-      - caddy_config:/config # Mount persistent config volume
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
     environment:
-      # Pass domain name for use in Caddyfile
-      # Email is configured via Caddyfile global options
       - DOMAIN_NAME=${DOMAIN_NAME}
     depends_on:
       - backend
